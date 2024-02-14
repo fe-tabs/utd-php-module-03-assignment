@@ -2,6 +2,10 @@
 
   require_once 'connection.php';
 
+  if (!isset($_SESSION[base64_encode('user_data')])) {
+    header("location: index.php");;
+  }
+
   $query = "SELECT * FROM `products`;";
 
   $response = mysqli_query($conn, $query) or die(mysqli_error($conn));

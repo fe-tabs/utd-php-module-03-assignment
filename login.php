@@ -18,6 +18,8 @@
     $_SESSION[base64_encode('user_data')] = $userData;
 
     header("location: index.php?page=admin");
+  } else {
+    header("location: index.php");
   }
 
 ?>
