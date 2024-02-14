@@ -1,79 +1,50 @@
 <?php
-  if (!empty($_GET['q'])) {
-    switch ($_GET['q']) {
-      case 'info':
-        phpinfo(); 
-        exit;
-      break;
-    }
+
+  require_once 'connection.php';
+
+  $query = "SELECT * FROM `products`;";
+
+  $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+  $data = array();
+
+  while ($row = mysqli_fetch_assoc($response)) {
+    $data[] = $row;
   }
+
 ?>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Laragon</title>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="https://fonts.googleapis.com/css?family=Karla:400" rel="stylesheet" type="text/css">
+    <title>Busca Preço</title>
+  </head>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Karla';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-
-            .opt {
-                margin-top: 30px;
-            }
-
-            .opt a {
-              text-decoration: none;
-              font-size: 150%;
-            }
-            
-            a:hover {
-              color: red;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title" title="Laragon">Laragon</div>
-     
-                <div class="info"><br />
-                      <?php print($_SERVER['SERVER_SOFTWARE']); ?><br />
-                      PHP version: <?php print phpversion(); ?>   <span><a title="phpinfo()" href="/?q=info">info</a></span><br />
-                      Document Root: <?php print ($_SERVER['DOCUMENT_ROOT']); ?><br />
-
-                </div>
-                <div class="opt">
-                  <div><a title="Getting Started" href="https://laragon.org/docs">Getting Started</a></div>
-                </div>
-            </div>
-
-        </div>
-    </body>
+  <body>
+    <table>
+      <thead>
+        <th>Descrição</th>
+        <th>Código de Barras</th>
+        <th>Preço de Varejo</th>
+        <th>Preço de Atacado</th>
+        <th>Detalhes</th>
+        <th>Seção</th>
+      </thead>
+      <tbody>
+        <?php foreach ($data as $product) : ?>
+          <tr>
+            <td><?= $product['description']; ?></td>
+            <td><?= $product['ean_code']; ?></td>
+            <td><?= $product['retail_price']; ?></td>
+            <td><?= $product['wholesale_price']; ?></td>
+            <td><?= $product['details']; ?></td>
+            <td><?= $product['section']; ?></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </body>
 </html>
