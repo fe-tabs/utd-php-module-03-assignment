@@ -3,7 +3,14 @@
 <?php
 
   if (isset($_POST['ean_code']) && !empty($_POST['ean_code'])) {
-    $query = "SELECT * FROM `products` WHERE `ean_code` = '".
+    $query = "SELECT 
+      `description`, 
+      `ean_code`,
+      `retail_price`,
+      `wholesale_price`,
+      `details`,
+      `section` 
+    FROM `products` WHERE `ean_code` = '".
       $_POST['ean_code']
     ."';";
 
@@ -13,7 +20,14 @@
       $data[] = $row;
     }
   } else {
-    $query = "SELECT * FROM `products`;";
+    $query = "SELECT 
+      `description`, 
+      `ean_code`,
+      `retail_price`,
+      `wholesale_price`,
+      `details`,
+      `section` 
+    FROM `products`;";
   
     $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
   
@@ -25,30 +39,18 @@
   }
 
   $searchField = 'ean_code';
+  $tableColumns = [
+    'Descrição',
+    'Código de Barras',
+    'Preço de Varejo',
+    'Preço de Atacado',
+    'Detalhes',
+    'Seção'
+  ];
+  $tableData = $data;
 
 ?>
 
 <?php include_once 'components/searchbar.php';?>
 
-<table>
-  <thead>
-    <th>Descrição</th>
-    <th>Código de Barras</th>
-    <th>Preço de Varejo</th>
-    <th>Preço de Atacado</th>
-    <th>Detalhes</th>
-    <th>Seção</th>
-  </thead>
-  <tbody>
-    <?php foreach ($data as $product) : ?>
-      <tr>
-        <td><?= $product['description']; ?></td>
-        <td><?= $product['ean_code']; ?></td>
-        <td><?= $product['retail_price']; ?></td>
-        <td><?= $product['wholesale_price']; ?></td>
-        <td><?= $product['details']; ?></td>
-        <td><?= $product['section']; ?></td>
-      </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
+<?php include_once 'components/table.php';?>

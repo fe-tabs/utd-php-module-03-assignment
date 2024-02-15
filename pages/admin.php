@@ -16,6 +16,20 @@
     $data[] = $row;
   }
 
+  $tableColumns = [
+    'Descrição',
+    'Código de Barras',
+    'Preço de Varejo',
+    'Preço de Atacado',
+    'Detalhes',
+    'Seção'
+  ];
+  $tableData = array();
+  
+  foreach ($data as $row) {
+    $tableData[] = array_slice($row, 1);
+  }
+
 ?>
 
 <form action="#" method="POST">
@@ -70,28 +84,7 @@
 
 <hr/>
 
-<table>
-  <thead>
-    <th>Descrição</th>
-    <th>Código de Barras</th>
-    <th>Preço de Varejo</th>
-    <th>Preço de Atacado</th>
-    <th>Detalhes</th>
-    <th>Seção</th>
-  </thead>
-  <tbody>
-    <?php foreach ($data as $product) : ?>
-      <tr>
-        <td><?= $product['description']; ?></td>
-        <td><?= $product['ean_code']; ?></td>
-        <td><?= $product['retail_price']; ?></td>
-        <td><?= $product['wholesale_price']; ?></td>
-        <td><?= $product['details']; ?></td>
-        <td><?= $product['section']; ?></td>
-      </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
+<?php include_once 'components/table.php';?>
 
 <?php
 
