@@ -1,6 +1,6 @@
-<?php
+<?php require_once 'connection.php';?>
 
-  require_once 'connection.php';
+<?php
 
   if (isset($_POST['ean_code']) && !empty($_POST['ean_code'])) {
     $query = "SELECT * FROM `products` WHERE `ean_code` = '".
@@ -24,16 +24,11 @@
     }
   }
 
+  $searchField = 'ean_code';
+
 ?>
 
-<form action="#" method="POST">
-  <label for="ean_code">Código de Barras</label>
-  <input id="ean_code" name="ean_code" type="text"/>
-
-  <input type="submit"/>
-</form>
-
-<hr/>
+<?php include_once 'components/searchbar.php';?>
 
 <table>
   <thead>

@@ -7,17 +7,6 @@
     <i class="fas fa-bars"></i>
   </button>
 
-  <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-    <div class="input-group">
-      <input class="form-control" type="text" placeholder="Buscar por..." aria-label="Buscar por..."
-        aria-describedby="btnNavbarSearch" />
-
-      <button id="btnNavbarSearch" class="btn btn-primary" type="submit">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
-  </form>
-
   <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
     <li class="nav-item dropdown">
       <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
@@ -28,32 +17,31 @@
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
         <li>
           <?php
-                echo ($userData) ? (
-                  <<<END
-                  <a class="dropdown-item" href="logout.php">
-                    Sair
-                  </a>
-                  END
-                ) : (
-                  <<<END
-                  <form action="login.php" method="POST" class="m-3">
-                    <label for="username">Usuário</label>
-                    <input id="username" name="username" type="text"/>
-                    <br/>
-                    <label for="password" class="mt-3" >Senha</label>
-                    <input 
-                      id="password" 
-                      name="password" 
-                      type="password"
-                      maxlength="10"
-                    />
-                    <br/>
-                    <input class="mt-3" value="Entrar" type="submit"/>
-                  </form>
-                  END
-                );
-              ?>
-
+            echo ($userData) ? (
+              <<<END
+              <a class="dropdown-item" href="logout.php">
+                Sair
+              </a>
+              END
+            ) : (
+              <<<END
+              <form action="login.php" method="POST" class="m-3">
+                <label for="username">Usuário</label>
+                <input id="username" name="username" type="text"/>
+                <br/>
+                <label for="password" class="mt-3" >Senha</label>
+                <input 
+                  id="password" 
+                  name="password" 
+                  type="password"
+                  maxlength="10"
+                />
+                <br/>
+                <input class="mt-3" value="Entrar" type="submit"/>
+              </form>
+              END
+            );
+          ?>
         </li>
       </ul>
     </li>
