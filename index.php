@@ -35,7 +35,9 @@
       </div>
       
       <div id="layoutSidenav_content">
-        <?php content()?>
+        <div class="container py-3">
+          <?php content()?>
+        </div>
       </div>
     </div>
 
