@@ -19,6 +19,13 @@
 ?>
 
 <form action="#" method="POST">
+  <input 
+    id="action"
+    name="action"
+    type="hidden" 
+    value="insert"
+  />
+
   <label for="description">Descrição</label>
   <input id="description" name="description" type="text"/>
   <br/>
@@ -88,13 +95,26 @@
 
 <?php
 
-  if (isset($_POST['description']) && !empty($_POST['description'])) {
-    $fields = implode("`, `", array_keys($_POST));
-    $values = implode("', '", $_POST);
+  if(isset($_POST['action']) && !empty($_POST['action'])) {    
+    if($_POST['action'] == 'insert') {
+      unset($_POST['action']);
+      insert($conn);
+    }
 
-    $query = "INSERT INTO `products` (`$fields`) VALUES ('$values')";
+    header("location: ?page=admin");
+  }
 
-    $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+  function insert($conn) {
+    if (isset($_POST['description']) && !empty($_POST['description'])) {
+      $fields = implode("`, `", array_keys($_POST));
+      $values = implode("', '", $_POST);
+
+      $query = "INSERT INTO `products` (`$fields`) VALUES ('$values')";
+
+      $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+      return $response;
+    }
   }
 
 ?>
