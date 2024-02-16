@@ -4,63 +4,129 @@
   
   function insert($conn) {
     if (isset($_POST['description']) && !empty($_POST['description'])) {
-      $fields = implode("`, `", array_keys($_POST));
-      $values = implode("', '", $_POST);
+      $description = $_POST['description'];
+      $ean_code = $_POST['ean_code'];
+      $retail_price = $_POST['retail_price'];
+      $wholesale_price = $_POST['wholesale_price'];
+      $details = $_POST['details'];
+      $section = $_POST['section'];
 
-      $query = "INSERT INTO `products` (`$fields`) VALUES ('$values')";
+      $stmt = mysqli_stmt_init($conn);
+      mysqli_stmt_prepare($stmt, "INSERT INTO `products` (
+        `description`,
+        `ean_code`,
+        `retail_price`,
+        `wholesale_price`,
+        `details`,
+        `section`
+      ) VALUES (?, ?, ?, ?, ?, ?)");
+      
+      mysqli_stmt_bind_param($stmt, 'ssddss', 
+        $description,
+        $ean_code,
+        $retail_price,
+        $wholesale_price,
+        $details, 
+        $section
+      );
+      mysqli_stmt_execute($stmt);
+      
+      $response = mysqli_stmt_get_result($stmt) or die(mysqli_stmt_error($stmt));
 
-      $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    
+      mysqli_stmt_close($stmt);
+
       return $response;
     }
   }
 
   function listAll($conn) {
-    $query = "SELECT * FROM `products`;";
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, "SELECT * FROM `products`");
+    mysqli_stmt_execute($stmt);
 
-    $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    $response = mysqli_stmt_get_result($stmt) or die(mysqli_error($conn));
   
+    mysqli_stmt_close($stmt);
+    
     return $response;
   }
 
   function listOne($conn, $field, $value) {
-    $query = "SELECT * FROM `products` WHERE `$field` = $value";
-
-    $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    if (in_array($field, [
+      'id',
+      'description', 
+      'ean_code',
+      'retail_price',
+      'wholesale_price',
+      'details',
+      'section'
+      ])) {
+      $stmt = mysqli_stmt_init($conn);
+      mysqli_stmt_prepare($stmt, "SELECT * FROM `products` WHERE $field = ?");
+      mysqli_stmt_bind_param($stmt, 's', $value);
+      mysqli_stmt_execute($stmt);
   
-    return $response;
-
+      $response = mysqli_stmt_get_result($stmt) or die(mysqli_error($conn));
+    
+      mysqli_stmt_close($stmt);
+  
+      return $response;
+    }
   }
 
   function update($conn) {
     $id = $_GET['update'];
     unset($_POST['update']);
 
-    $fields = array_keys($_POST);
-    $values = $_POST;
+    $description = $_POST['description'];
+    $ean_code = $_POST['ean_code'];
+    $retail_price = $_POST['retail_price'];
+    $wholesale_price = $_POST['wholesale_price'];
+    $details = $_POST['details'];
+    $section = $_POST['section'];
 
-    $query = "UPDATE `products` SET ";
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, "UPDATE `products` SET 
+        `description` = ?,
+        `ean_code` = ?,
+        `retail_price` = ?,
+        `wholesale_price` = ?,
+        `details` = ?,
+        `section` = ? WHERE `id` = ?"
+    );
 
-    for ($i=0; $i < count($fields); $i++) { 
-      $query = $query."`".$fields[$i]."` = '".$values[$fields[$i]]."', ";
-    }
+    mysqli_stmt_bind_param($stmt, 'ssddssi', 
+      $description,
+      $ean_code,
+      $retail_price,
+      $wholesale_price,
+      $details, 
+      $section,
+      $id
+    );
 
-    $query = substr($query, 0, -2)." WHERE `id` = $id;";
+    mysqli_stmt_execute($stmt);
+      
+    $response = mysqli_stmt_get_result($stmt) or die(mysqli_stmt_error($stmt));
 
-    $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    
+    mysqli_stmt_close($stmt);
+
     return $response;
   }
 
   function delete($conn) {
-    if(isset($_GET['delete'])) {
-      $id = $_GET['delete'];
-      $query = "DELETE FROM `products` WHERE `id` = $id";
+    $id = $_GET['delete'];
 
-      $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    $stmt = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmt, "DELETE FROM `products` WHERE `id` = ?");
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+    mysqli_stmt_execute($stmt);
+
+    $response = mysqli_stmt_get_result($stmt) or die(mysqli_error($conn));
+  
+    mysqli_stmt_close($stmt);
     
-      return $response;
-    }
+    return $response;
   }
-
+    
 ?>
