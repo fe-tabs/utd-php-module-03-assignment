@@ -1,36 +1,16 @@
-<?php require_once 'connection.php';?>
-
 <?php
 
-  if (isset($_POST['ean_code']) && !empty($_POST['ean_code'])) {
-    $query = "SELECT 
-      `description`, 
-      `ean_code`,
-      `retail_price`,
-      `wholesale_price`,
-      `details`,
-      `section` 
-    FROM `products` WHERE `ean_code` = '".
-      $_POST['ean_code']
-    ."';";
+  include_once 'modules/products/products.php';
 
-    $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+  if (isset($_POST['ean_code']) && !empty($_POST['ean_code'])) {
+    $response = listOne($conn, 'ean_code', $_POST['ean_code']);
   
     while ($row = mysqli_fetch_assoc($response)) {
       $data[] = $row;
     }
   } else {
-    $query = "SELECT 
-      `description`, 
-      `ean_code`,
-      `retail_price`,
-      `wholesale_price`,
-      `details`,
-      `section` 
-    FROM `products`;";
-  
-    $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
-  
+    $response = listAll($conn);
+
     $data = array();
   
     while ($row = mysqli_fetch_assoc($response)) {
@@ -47,7 +27,9 @@
     'Detalhes',
     'Seção'
   ];
-  $tableData = $data;
+  foreach ($data as $row) {
+    $tableData[] = array_slice($row, 1);
+  }
 
 ?>
 
