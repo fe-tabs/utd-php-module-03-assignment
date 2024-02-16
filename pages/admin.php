@@ -73,72 +73,90 @@
 
 ?>
 
-<form action="#" method="POST">
-  <input 
-    id="action"
-    name="action"
-    type="hidden" 
-    value="<?=($updateData) ? 'update' : 'insert'?>"
-  />
-
-  <label for="description">Descrição</label>
-  <input 
-    id="description" 
-    name="description" 
-    type="text"
-    value="<?=($updateData) ? $updateData['description'] : '';?>"
-  />
-  <br/>
-  <label for="ean_code">Código de Barras</label>
-  <input
-    id="ean_code"
-    name="ean_code"
-    type="text"
-    value="<?=($updateData) ? $updateData['ean_code'] : '';?>"
-  />
-  <br/>
-  <label for="retail_price">Preço de Varejo</label>
-  <input 
-    id="retail_price" 
-    name="retail_price" 
-    type="number"
-    step="0.01"
-    min="0.01"
-    max="99999.99"
-    value="<?=($updateData) ? $updateData['retail_price'] : 0.1;?>"
-  />
-  <br/>
-  <label for="wholesale_price">Preço de Atacado</label>
-  <input 
-    id="wholesale_price" 
-    name="wholesale_price" 
-    type="number"
-    step="0.01"
-    min="0.01"
-    max="99999.99"
-    value="<?=($updateData) ? $updateData['wholesale_price'] : 0.1;?>"
-  />
-  <br/>
-  <label for="details">Detalhes</label>
-  <textarea
-    id="details"
-    name="details"
-    maxlength="500"
-  >
-    <?=($updateData) ? $updateData['details'] : '';?>
-  </textarea>
-  <br/>
-  <label for="section">Seção</label>
-  <input 
-    id="section" 
-    name="section" 
-    type="text"
-    value="<?=($updateData) ? $updateData['section'] : '';?>"
-  />
-
-  <input type="submit"/>
-</form>
-
-<hr/>
+<div class="card col-md-6 mb-3" style="font-size: 0.75rem;">
+  <div class="card-header">
+    <h6 class="font-weight-light my-2">
+      Adicionar produto
+    </h6>
+  </div>
+  <div class="card-body">
+    <form action="#" method="POST">
+      <input 
+        id="action"
+        name="action"
+        type="hidden" 
+        value="<?=($updateData) ? 'update' : 'insert'?>"
+      />
+    
+      <label for="description">Descrição</label>
+      <input 
+        id="description" 
+        class="form-control my-2"
+        name="description" 
+        type="text"
+        value="<?=($updateData) ? $updateData['description'] : '';?>"
+      />
+    
+      <label for="ean_code">Código de Barras</label>
+      <input
+        id="ean_code"
+        class="form-control my-2"
+        name="ean_code"
+        type="text"
+        value="<?=($updateData) ? $updateData['ean_code'] : '';?>"
+      />
+      <div class="row">
+        <div class="col-sm-6">
+          <label for="retail_price">Preço de Varejo</label>
+          <input 
+            id="retail_price" 
+            class="form-control my-2"
+            name="retail_price" 
+            type="number"
+            step="0.01"
+            min="0.01"
+            max="99999.99"
+            value="<?=($updateData) ? $updateData['retail_price'] : 0.1;?>"
+          />
+        </div>
+        
+        <div class="col-sm-6">
+          <label for="wholesale_price">Preço de Atacado</label>
+          <input 
+            id="wholesale_price" 
+            name="wholesale_price" 
+            class="form-control my-2"
+            type="number"
+            step="0.01"
+            min="0.01"
+            max="99999.99"
+            value="<?=($updateData) ? $updateData['wholesale_price'] : 0.1;?>"
+          />
+        </div>
+      </div>
+      
+      <label for="details">Detalhes</label>
+      <textarea
+        id="details"
+        class="form-control my-2"
+        name="details"
+        maxlength="500"
+      >
+        <?=($updateData) ? $updateData['details'] : '';?>
+      </textarea>
+      
+      <label for="section">Seção</label>
+      <input 
+        id="section" 
+        class="form-control my-2"
+        name="section" 
+        type="text"
+        value="<?=($updateData) ? $updateData['section'] : '';?>"
+      />
+    
+      <input class="mt-2" type="submit" value="Enviar"/>
+    </form>
+  </div>
+</div>
 
 <?php include_once 'components/table.php';?>
