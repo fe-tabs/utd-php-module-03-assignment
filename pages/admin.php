@@ -22,12 +22,24 @@
     'Preço de Varejo',
     'Preço de Atacado',
     'Detalhes',
-    'Seção'
+    'Seção',
+    'Ações'
   ];
   $tableData = array();
-  
+  $tableDataIds = array();
+
   foreach ($data as $row) {
+    $tableDataIds[] = array_slice($row, 0, 1);
     $tableData[] = array_slice($row, 1);
+  }
+
+  for ($i=0; $i < count($tableData); $i++) { 
+    $tableData[$i]['action'] = <<<END
+    <a href="?page=admin&delete=
+    END.$tableDataIds[$i]['id'].'">'.<<<END
+      Excluir
+    </a>
+    END;
   }
 
 ?>
@@ -88,13 +100,11 @@
 
 <?php
 
-  if(isset($_POST['action']) && !empty($_POST['action'])) {    
+  if(isset($_POST['action']) && !empty($_POST['action'])) {
     if($_POST['action'] == 'insert') {
       unset($_POST['action']);
       insert($conn);
     }
-
-    header("location: ?page=admin");
   }
 
   function insert($conn) {
@@ -103,6 +113,21 @@
       $values = implode("', '", $_POST);
 
       $query = "INSERT INTO `products` (`$fields`) VALUES ('$values')";
+
+      $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+      return $response;
+    }
+  }
+
+  if(isset($_GET['delete'])) {
+    delete($conn);
+  }
+
+  function delete($conn) {
+    if(isset($_GET['delete'])) {
+      $id = $_GET['delete'];
+      $query = "DELETE FROM `products` WHERE `id` = $id";
 
       $response = mysqli_query($conn, $query) or die(mysqli_error($conn));
     
