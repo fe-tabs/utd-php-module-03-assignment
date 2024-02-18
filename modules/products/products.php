@@ -4,12 +4,7 @@
   
   function insert($conn) {
     if (isset($_POST['description']) && !empty($_POST['description'])) {
-      $description = $_POST['description'];
-      $ean_code = $_POST['ean_code'];
-      $retail_price = $_POST['retail_price'];
-      $wholesale_price = $_POST['wholesale_price'];
-      $details = $_POST['details'];
-      $section = $_POST['section'];
+      header("location: index.php?page=admin");
 
       $stmt = mysqli_stmt_init($conn);
       mysqli_stmt_prepare($stmt, "INSERT INTO `products` (
@@ -22,12 +17,12 @@
       ) VALUES (?, ?, ?, ?, ?, ?)");
       
       mysqli_stmt_bind_param($stmt, 'ssddss', 
-        $description,
-        $ean_code,
-        $retail_price,
-        $wholesale_price,
-        $details, 
-        $section
+        $_POST['description'],
+        $_POST['ean_code'],
+        $$_´POST['retail_price'],
+        $$_POST['wholesale_price'],
+        $_POST['details'], 
+        $_POST['section']
       );
       mysqli_stmt_execute($stmt);
       
@@ -75,15 +70,7 @@
   }
 
   function update($conn) {
-    $id = $_GET['update'];
-    unset($_POST['update']);
-
-    $description = $_POST['description'];
-    $ean_code = $_POST['ean_code'];
-    $retail_price = $_POST['retail_price'];
-    $wholesale_price = $_POST['wholesale_price'];
-    $details = $_POST['details'];
-    $section = $_POST['section'];
+    header("location: index.php?page=admin");
 
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "UPDATE `products` SET 
@@ -96,13 +83,13 @@
     );
 
     mysqli_stmt_bind_param($stmt, 'ssddssi', 
-      $description,
-      $ean_code,
-      $retail_price,
-      $wholesale_price,
-      $details, 
-      $section,
-      $id
+      $_POST['description'],
+      $_POST['ean_code'],
+      $_POST['retail_price'],
+      $_POST['wholesale_price'],
+      $_POST['details'], 
+      $_POST['section'],
+      $_POST['id']
     );
 
     mysqli_stmt_execute($stmt);
@@ -115,11 +102,11 @@
   }
 
   function delete($conn) {
-    $id = $_GET['delete'];
+    header("location: index.php?page=admin");
 
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "DELETE FROM `products` WHERE `id` = ?");
-    mysqli_stmt_bind_param($stmt, 'i', $id);
+    mysqli_stmt_bind_param($stmt, 'i', $_POST['id']);
     mysqli_stmt_execute($stmt);
 
     $response = mysqli_stmt_get_result($stmt) or die(mysqli_error($conn));

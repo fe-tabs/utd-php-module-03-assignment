@@ -13,11 +13,9 @@
     } elseif($_POST['action'] == 'update') {
       unset($_POST['action']);
       update($conn);
+    } elseif ($_POST['action'] == 'delete') {
+      delete($conn);
     }
-  }
-
-  if(isset($_GET['delete'])) {
-    delete($conn);
   }
 
   $updateData = false;
@@ -58,17 +56,27 @@
   }
 
   for ($i=0; $i < count($tableData); $i++) { 
-    $tableData[$i]['action'] = <<<END
-    <a class="btn btn-primary" href="?page=admin&update=
-    END.$tableDataIds[$i]['id'].'">'.<<<END
-      Editar
-    </a>
-
-    <a class="btn btn-danger" href="?page=admin&delete=
-    END.$tableDataIds[$i]['id'].'">'.<<<END
-      Excluir
-    </a>
-    END;
+    $tableData[$i]['action'] = '
+      <div>
+        <a 
+          class="btn btn-primary" 
+          href="?page=admin&update='.$tableDataIds[$i]['id'].'"
+        >
+          Editar
+        </a>
+        
+        <form action="#" method="post">
+          <input id="action" name="action" type="hidden" value="delete"/>
+          <input 
+            id="id"
+            name="id"
+            type="hidden"
+            value="'.$tableDataIds[$i]['id'].'"
+          />
+          <input class="btn btn-danger" type="submit" value="Excluir"/>
+        </form>
+      </div>
+    ';
   }
 
 ?>
@@ -87,6 +95,15 @@
         type="hidden" 
         value="<?=($updateData) ? 'update' : 'insert'?>"
       />
+
+      <?=($updateData) ? '
+        <input 
+          id="id"
+          name="id"
+          type="hidden" 
+          value="'.$updateData['id'].'"
+        />
+      ' : ''?>
     
       <div class="input-group my-2">
         <label class="input-group-text" for="description">Descrição</label>
