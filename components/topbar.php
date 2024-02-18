@@ -25,19 +25,42 @@
               END
             ) : (
               <<<END
-              <form action="login.php" method="POST" class="m-3">
-                <label for="username">Usuário</label>
-                <input id="username" name="username" type="text"/>
-                <br/>
-                <label for="password" class="mt-3" >Senha</label>
-                <input 
-                  id="password" 
-                  name="password" 
-                  type="password"
-                  maxlength="10"
-                />
-                <br/>
-                <input class="mt-3" value="Entrar" type="submit"/>
+              <form action="login.php" method="POST" class="m-3" style="min-width: 220px">
+                <h5 class="font-weight-light my-2">
+                  Acesso Administrativo
+                </h5>
+                <div class="input-group">
+                  <label
+                  for="username"
+                  class="input-group-text"
+                  style="min-width: 80px"
+                  >
+                    Usuário
+                  </label>
+                  <input
+                    id="username"
+                    class="form-control"
+                    name="username" 
+                    type="text"
+                  />
+                </div>
+                <div class="input-group mt-2">
+                  <label 
+                    for="password" 
+                    class="input-group-text" 
+                    style="min-width: 80px"
+                  >
+                    Senha
+                  </label>
+                  <input 
+                    id="password" 
+                    class="form-control"
+                    name="password" 
+                    type="password"
+                    maxlength="10"
+                  />
+                </div>
+                <input class="btn btn-primary mt-2" value="Entrar" type="submit"/>
               </form>
               END
             );

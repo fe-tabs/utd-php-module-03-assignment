@@ -59,12 +59,12 @@
 
   for ($i=0; $i < count($tableData); $i++) { 
     $tableData[$i]['action'] = <<<END
-    <a href="?page=admin&update=
+    <a class="btn btn-primary" href="?page=admin&update=
     END.$tableDataIds[$i]['id'].'">'.<<<END
       Editar
     </a>
 
-    <a href="?page=admin&delete=
+    <a class="btn btn-danger" href="?page=admin&delete=
     END.$tableDataIds[$i]['id'].'">'.<<<END
       Excluir
     </a>
@@ -88,73 +88,86 @@
         value="<?=($updateData) ? 'update' : 'insert'?>"
       />
     
-      <label for="description">Descrição</label>
-      <input 
-        id="description" 
-        class="form-control my-2"
-        name="description" 
-        type="text"
-        value="<?=($updateData) ? $updateData['description'] : '';?>"
-      />
+      <div class="input-group my-2">
+        <label class="input-group-text" for="description">Descrição</label>
+        <input 
+          id="description" 
+          class="form-control"
+          name="description" 
+          type="text"
+          value="<?=($updateData) ? $updateData['description'] : '';?>"
+        />
+      </div>
     
-      <label for="ean_code">Código de Barras</label>
-      <input
-        id="ean_code"
-        class="form-control my-2"
-        name="ean_code"
-        type="text"
-        value="<?=($updateData) ? $updateData['ean_code'] : '';?>"
-      />
-      <div class="row">
+      <div class="input-group my-2">
+        <label class="input-group-text" for="ean_code">Código de Barras</label>
+        <input
+          id="ean_code"
+          class="form-control"
+          name="ean_code"
+          type="text"
+          value="<?=($updateData) ? $updateData['ean_code'] : '';?>"
+        />
+      </div>
+
+      <div class="row my-2">
         <div class="col-sm-6">
-          <label for="retail_price">Preço de Varejo</label>
-          <input 
-            id="retail_price" 
-            class="form-control my-2"
-            name="retail_price" 
-            type="number"
-            step="0.01"
-            min="0.01"
-            max="99999.99"
-            value="<?=($updateData) ? $updateData['retail_price'] : 0.1;?>"
-          />
+          <div class="input-group">
+            <label class="input-group-text" for="retail_price">Preço de Varejo</label>
+              <input 
+                id="retail_price" 
+                class="form-control"
+                name="retail_price" 
+                type="number"
+                step="0.01"
+                min="0.01"
+                max="99999.99"
+                value="<?=($updateData) ? $updateData['retail_price'] : 0.1;?>"
+              />
+          </div>  
         </div>
         
         <div class="col-sm-6">
-          <label for="wholesale_price">Preço de Atacado</label>
-          <input 
-            id="wholesale_price" 
-            name="wholesale_price" 
-            class="form-control my-2"
-            type="number"
-            step="0.01"
-            min="0.01"
-            max="99999.99"
-            value="<?=($updateData) ? $updateData['wholesale_price'] : 0.1;?>"
-          />
+          <div class="input-group">
+            <label class="input-group-text" for="wholesale_price">Preço de Atacado</label>
+              <input 
+                id="wholesale_price" 
+                name="wholesale_price" 
+                class="form-control"
+                type="number"
+                step="0.01"
+                min="0.01"
+                max="99999.99"
+                value="<?=($updateData) ? $updateData['wholesale_price'] : 0.1;?>"
+              />
+          </div>  
         </div>
       </div>
       
-      <label for="details">Detalhes</label>
-      <textarea
-        id="details"
-        class="form-control my-2"
-        name="details"
-        maxlength="500"
-      >
-        <?=($updateData) ? $updateData['details'] : '';?>
-      </textarea>
+      <div class="input-group my-2">
+        <label class="input-group-text" for="details">Detalhes</label>
+        <textarea
+          id="details"
+          class="form-control"
+          name="details"
+          maxlength="500"
+        >
+          <?=($updateData) ? $updateData['details'] : '';?>
+        </textarea>
+      </div>
       
-      <label for="section">Seção</label>
-      <input 
-        id="section" 
-        class="form-control my-2"
-        name="section" 
-        type="text"
-        value="<?=($updateData) ? $updateData['section'] : '';?>"
-      />
+      <div class="input-group my-2">
+        <label class="input-group-text" for="section">Seção</label>
+        <input 
+          id="section" 
+          class="form-control"
+          name="section" 
+          type="text"
+          value="<?=($updateData) ? $updateData['section'] : '';?>"
+        />
+      </div>
     
-      <input class="mt-2" type="submit" value="Enviar"/>
+      <input class="btn btn-primary mt-2" type="submit" value="Enviar"/>
     </form>
   </div>
 </div>
