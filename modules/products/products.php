@@ -19,8 +19,8 @@
       mysqli_stmt_bind_param($stmt, 'ssddss', 
         $_POST['description'],
         $_POST['ean_code'],
-        $$_´POST['retail_price'],
-        $$_POST['wholesale_price'],
+        $_POST['retail_price'],
+        $_POST['wholesale_price'],
         $_POST['details'], 
         $_POST['section']
       );
