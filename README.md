@@ -64,18 +64,18 @@ O Módulo III - Banco de Dados aborda:
 ```sql
 CREATE TABLE `users`( 
   `id` INT PRIMARY KEY AUTO_INCREMENT,
-	`username` VARCHAR(20) UNIQUE KEY NOT NULL,
-	`password` VARCHAR(20) NOT NULL
+  `username` VARCHAR(20) UNIQUE KEY NOT NULL,
+  `password` VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE `products`(
-	`id` INT PRIMARY KEY AUTO_INCREMENT,
-	`description` VARCHAR(80) UNIQUE KEY NOT NULL,
-	`ean_code` VARCHAR(13) UNIQUE KEY NOT NULL,
-	`retail_price` FLOAT(7,2) DEFAULT 0.1,
-	`wholesale_price` FLOAT(7,2) DEFAULT 0.1,
-	`details` TEXT(500),
-	`section` VARCHAR(80) NOT NULL
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
+  `description` VARCHAR(80) UNIQUE KEY NOT NULL,
+  `ean_code` VARCHAR(13) UNIQUE KEY NOT NULL,
+  `retail_price` FLOAT(7,2) DEFAULT 0.1,
+  `wholesale_price` FLOAT(7,2) DEFAULT 0.1,
+  `details` TEXT(500),
+  `section` VARCHAR(80) NOT NULL
 );
 ```
 
