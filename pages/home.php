@@ -27,8 +27,14 @@
     'Detalhes',
     'Seção'
   ];
+
   foreach ($data as $row) {
     $tableData[] = array_slice($row, 1);
+  }
+
+  for ($i=0; $i < count($tableData); $i++) { 
+    $tableData[$i]['retail_price'] = 'R$ '.$tableData[$i]['retail_price'];
+    $tableData[$i]['wholesale_price'] = 'R$ '.$tableData[$i]['wholesale_price'];
   }
 
 ?>

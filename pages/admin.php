@@ -56,6 +56,11 @@
   }
 
   for ($i=0; $i < count($tableData); $i++) { 
+    $tableData[$i]['retail_price'] = 'R$ '.$tableData[$i]['retail_price'];
+    $tableData[$i]['wholesale_price'] = 'R$ '.$tableData[$i]['wholesale_price'];
+  }
+
+  for ($i=0; $i < count($tableData); $i++) { 
     $tableData[$i]['action'] = '
       <div>
         <a 
